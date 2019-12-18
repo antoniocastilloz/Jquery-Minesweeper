@@ -1,0 +1,37 @@
+/* body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+div{
+    text-align: center;
+}
+
+#box{
+    background-color: aquamarine;
+    padding: 0.5rem!important;
+    border-radius: 6px;
+}
+
+.row{
+    margin-bottom: 0px!important;
+}
+
+.card{
+    margin: 0px!important;
+    padding: 0.5rem!important;
+}
+
+.col{
+    padding: 0.5rem!important;
+}
+
+div#btnOperation.row div.col.s2{
+    width: 20%;
+}
+
+div#calculo, div#resposta{
+    padding: 0.5rem!important;
+} */
