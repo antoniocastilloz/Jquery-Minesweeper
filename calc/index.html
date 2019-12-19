@@ -3,24 +3,56 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Calculadora</title>
+    <title>Campo Minado</title>
 
     <!-- Css -->
     <link rel="stylesheet" type="text/css" href="style.css">
 
     <!-- Materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <!-- Jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </head>
 
 <body>
-</body>
-<script>
+    <div class="container">
+        <div class="row">
+            <div id="game-filter" class="col s3 center">
+                <div id="board-size" class="row">
+                    <label class="col s12">
+                        <input class="with-gap" name="radio-box" type="radio" checked />
+                        <span>5 x 5</span>
+                    </label>
+                    <label class="col s12">
+                        <input class="with-gap" name="radio-box" type="radio"/>
+                        <span>10 x 10</span>
+                    </label>
+                    <label class="col s12">
+                        <input class="with-gap" name="radio-box" type="radio"/>
+                        <span>15 x 15</span>
+                    </label>
+                </div>
 
-</script>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="num-minas" type="number" class="validate">
+                        <label for="num-minas">Número de Minas</label>
+                    </div>
+                </div>
+
+                <button id="btnPlay" class="btn waves-effect waves-light" type="submit" onclick="startGame()">Jogar<i
+                        class="material-icons left">videogame_asset</i></button>
+            </div>
+
+            <div id="game-board" class="col s9"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
 </html>

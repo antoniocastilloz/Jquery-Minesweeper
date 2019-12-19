@@ -1,37 +1,15 @@
-/* body{
+body {
+    background-color: rgb(53, 53, 54);
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
+    justify-content: center;
+    height:100vh;
 }
 
-div{
-    text-align: center;
+div#board-size.row label span{
+    width:100px;
 }
 
-#box{
-    background-color: aquamarine;
-    padding: 0.5rem!important;
-    border-radius: 6px;
+div#board-size.row .row{
+    margin-bottom:0px!important;
 }
-
-.row{
-    margin-bottom: 0px!important;
-}
-
-.card{
-    margin: 0px!important;
-    padding: 0.5rem!important;
-}
-
-.col{
-    padding: 0.5rem!important;
-}
-
-div#btnOperation.row div.col.s2{
-    width: 20%;
-}
-
-div#calculo, div#resposta{
-    padding: 0.5rem!important;
-} */
