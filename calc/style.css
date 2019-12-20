@@ -18,6 +18,24 @@ div.container .row{
     margin-bottom:0px!important;
 }
 
+#gameBoard{
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+}
+
+.gameBoardWidth5x5{
+    width: 140px!important;
+}
+
+.gameBoardWidth10x10{
+    width: 280px!important;
+}
+
+.gameBoardWidth15x15{
+    width: 420px!important;
+}
+
 .defaultSquareBoard{
     width: 28px;
     height: 28px;
