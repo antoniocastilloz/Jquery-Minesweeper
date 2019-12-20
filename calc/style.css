@@ -6,14 +6,24 @@ body {
     height:100vh;
 }
 
-div#board-size.row label span{
+div#boardSize.row label span{
     width:100px;
 }
 
-div#board-size.row .row{
+div#boardSize.row .row{
     margin-bottom:0px!important;
 }
 
 div.container .row{
     margin-bottom:0px!important;
+}
+
+.defaultSquareBoard{
+    width: 28px;
+    height: 28px;
+    border: solid 2px teal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-style: outset;
 }
