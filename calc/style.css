@@ -6,6 +6,13 @@ body {
     height:100vh;
 }
 
+#game{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
 div#boardSize.row label span{
     width:100px;
 }
@@ -18,10 +25,15 @@ div.container .row{
     margin-bottom:0px!important;
 }
 
+#gameFilter{
+    margin: 0px!important;
+}
+
 #gameBoard{
     display: flex;
     flex-direction: row;
     flex-flow: row wrap;
+    margin: 0px!important;
 }
 
 .gameBoardWidth5x5{
@@ -45,3 +57,6 @@ div.container .row{
     justify-content: center;
     border-style: outset;
 }
+
+
+

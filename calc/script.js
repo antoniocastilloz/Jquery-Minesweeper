@@ -1,7 +1,5 @@
 let assets = {Numbers: [1,2,3,4], Bomb: "&#x1F4A3;", Flag:"&#x1F6A9;", Explosion:"&#x1F4A5;"}
 
-
-
 function startGame() {
     let boardSizeRadio = $('input[name="radio-box"]:checked').next().text();
     let numMinesInput = $('#numMines').val();
@@ -10,24 +8,21 @@ function startGame() {
     if ((Math.pow(Number(size), 2) / 2) >= Number(numMinesInput)) {
         switch(size){
             case "5":
-                $("#gameBoard").empty();
-                removeAdditionalWidthClassesInGameBoard("gameBoardWidth10x10","gameBoardWidth15x15")
+                cleanGameBoard("gameBoardWidth10x10","gameBoardWidth15x15")
                 for(var i = 0; i < 24; i++){
                     $("#gameBoard").addClass("gameBoardWidth5x5")
                     $("#gameBoard").append('<div class="defaultSquareBoard">&#x1F4A3;</div>')
                 }
             break;
             case "10":
-                $("#gameBoard").empty();
-                removeAdditionalWidthClassesInGameBoard("gameBoardWidth5x5","gameBoardWidth15x15")
+                cleanGameBoard("gameBoardWidth5x5","gameBoardWidth15x15")
                 for(var i = 0; i < 99; i++){ 
                     $("#gameBoard").addClass("gameBoardWidth10x10")
                     $("#gameBoard").append('<div class="defaultSquareBoard">&#x1F4A3;</div>')
                 }
             break;
             case "15":
-                $("#gameBoard").empty();
-                removeAdditionalWidthClassesInGameBoard("gameBoardWidth10x10","gameBoardWidth5x5")
+                cleanGameBoard("gameBoardWidth10x10","gameBoardWidth5x5")
                 for(var i = 0; i < 224; i++){
                     $("#gameBoard").addClass("gameBoardWidth15x15")
                     $("#gameBoard").append('<div class="defaultSquareBoard">&#x1F4A3;</div>')
@@ -44,4 +39,9 @@ function removeAdditionalWidthClassesInGameBoard(additionalClass1,additionalClas
         $("#gameBoard").removeClass(additionalClass1)
         $("#gameBoard").removeClass(additionalClass2)
     }
+}
+
+function cleanGameBoard(additionalClass1,additionalClass2){
+    $("#gameBoard").empty();
+    removeAdditionalWidthClassesInGameBoard(additionalClass1,additionalClass2)
 }
