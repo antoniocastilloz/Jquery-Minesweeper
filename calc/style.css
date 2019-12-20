@@ -13,3 +13,7 @@ div#board-size.row label span{
 div#board-size.row .row{
     margin-bottom:0px!important;
 }
+
+div.container .row{
+    margin-bottom:0px!important;
+}
