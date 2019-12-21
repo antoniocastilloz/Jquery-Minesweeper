@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(53, 53, 54);
+    background-color: #212121;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,28 +34,42 @@ div.container .row{
     flex-direction: row;
     flex-flow: row wrap;
     margin: 0px!important;
+    padding: 0.75rem!important;
+    border: outset teal 10px;
+    background-color: grey;
 }
 
 .gameBoardWidth5x5{
-    width: 140px!important;
+    width: 203px!important;
 }
 
 .gameBoardWidth10x10{
-    width: 280px!important;
+    width: 363px!important;
 }
 
 .gameBoardWidth15x15{
-    width: 420px!important;
+    width: 523px!important;
 }
 
-.defaultSquareBoard{
-    width: 28px;
-    height: 28px;
-    border: solid 2px teal;
+.squareUnpressed{
+    width: 32px;
+    height: 32px;
+    border: solid 4px teal;
     display: flex;
     align-items: center;
     justify-content: center;
     border-style: outset;
+    background-color: #757575;
+}
+
+.squarePressed{
+    width: 32px;
+    height: 32px;
+    border: solid 1px #006064;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #757575;
 }
 
 
