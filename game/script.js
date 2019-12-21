@@ -46,35 +46,50 @@ function cleanGameBoard() {
 }
 
 function squareClick() {
+    leftClick()
+    rightClick()
+}
+
+function leftClick(){
     $("div[name='square']").click(function () {
+        if($(this).text() == "🚩"){
+            $(this).text("")
+        } 
         $(this).removeClass("squareUnpressed").addClass("squarePressed")
     })
 }
 
-function verifyIfGameBoardExists(){
+function rightClick(){
+    $("div[name='square']").contextmenu(function () {
+        $(this).append(assets.Flag)
+        return false;
+    });
+}
+
+function verifyIfGameBoardExists() {
     if ($("#gameBoard").length == 0) {
         $('#game').append('<div id="gameBoard" class="col s1"></div>')
     }
 }
 
-function renderGameBoardAccordingSize(size){
+function renderGameBoardAccordingSize(size) {
     switch (size) {
         case "5":
             for (var i = 0; i < 25; i++) {
                 $("#gameBoard").addClass("gameBoardWidth5x5")
-                $("#gameBoard").append('<div id="square' + i + '" name="square" class="squareUnpressed"></div>')
+                $("#gameBoard").append('<div id="square' + i + '" name="square" class="squareUnpressed" "></div>')
             }
             break;
         case "10":
             for (var i = 0; i < 100; i++) {
                 $("#gameBoard").addClass("gameBoardWidth10x10")
-                $("#gameBoard").append('<div id="square' + i + '" name="square" class="squareUnpressed"></div>')
+                $("#gameBoard").append('<div id="square' + i + '" name="square" class="squareUnpressed" "></div>')
             }
             break;
         case "15":
             for (var i = 0; i < 225; i++) {
                 $("#gameBoard").addClass("gameBoardWidth15x15")
-                $("#gameBoard").append('<div id="square' + i + '" name="square" class="squareUnpressed"></div>')
+                $("#gameBoard").append('<div id="square' + i + '" name="square" class="squareUnpressed" "></div>')
             }
             break;
     }
