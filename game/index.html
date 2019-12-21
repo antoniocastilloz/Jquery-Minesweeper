@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Campo Minado</title>
+
+    <!-- Css -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!-- Materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div id="game" class="row">
+            <div id="gameFilter" class="col s3 center">
+                <div id="boardSize" class="row">
+                    <label class="col s12">
+                        <input class="with-gap" name="radio-box" type="radio" checked />
+                        <span>5 x 5</span>
+                    </label>
+                    <label class="col s12">
+                        <input class="with-gap" name="radio-box" type="radio" />
+                        <span>10 x 10</span>
+                    </label>
+                    <label class="col s12">
+                        <input class="with-gap" name="radio-box" type="radio" />
+                        <span>15 x 15</span>
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="numMines" type="number" class="validate grey-text">
+                        <label for="numMines">Número de Minas</label>
+                    </div>
+                </div>
+                <button id="btnPlay" class="btn waves-effect waves-light" type="submit" onclick="startGame()">Jogar<i
+                        class="material-icons left">videogame_asset</i></button>
+            </div>
+            <div id="gameBoard" class="col s1"></div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
