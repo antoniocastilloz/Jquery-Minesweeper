@@ -31,12 +31,10 @@ function onlyNumbersInInput(input) {
 }
 
 function removeAdditionalWidthClassesInGameBoard() {
-    if ($("#gameBoard").hasClass("gameBoardWidth5x5") == true) {
-        $("#gameBoard").removeClass("gameBoardWidth5x5")
-    } else if ($("#gameBoard").hasClass("gameBoardWidth10x10") == true) {
-        $("#gameBoard").removeClass("gameBoardWidth10x10")
-    } else if ($("#gameBoard").hasClass("gameBoardWidth15x15") == true) {
-        $("#gameBoard").removeClass("gameBoardWidth15x15")
+    for (let i = 5; i <= 15; i += 5) {
+        if ($("#gameBoard").hasClass("gameBoardWidth" + i + "x" + i) == true) {
+            $("#gameBoard").removeClass("gameBoardWidth" + i + "x" + i)
+        }
     }
 }
 
@@ -55,42 +53,26 @@ function leftClick(){
         if($(this).text() == "🚩"){
             $(this).text("")
         } 
-        $(this).removeClass("squareUnpressed").addClass("squarePressed")
+        $(this).removeClass("squareUnpressed").addClass("squarePressed");
     })
 }
 
 function rightClick(){
     $("div[name='square']").contextmenu(function () {
-        $(this).append(assets.Flag)
+        $(this).append(assets.Flag);
         return false;
     });
 }
 
 function verifyIfGameBoardExists() {
     if ($("#gameBoard").length == 0) {
-        $('#game').append('<div id="gameBoard" class="col s1"></div>')
+        $('#game').append('<div id="gameBoard" class="col s1"></div>');
     }
 }
 
 function renderGameBoardAccordingSize(size) {
-    switch (size) {
-        case "5":
-            for (var i = 0; i < 25; i++) {
-                $("#gameBoard").addClass("gameBoardWidth5x5")
-                $("#gameBoard").append('<div id="square' + i + '" name="square" class="squareUnpressed" "></div>')
-            }
-            break;
-        case "10":
-            for (var i = 0; i < 100; i++) {
-                $("#gameBoard").addClass("gameBoardWidth10x10")
-                $("#gameBoard").append('<div id="square' + i + '" name="square" class="squareUnpressed" "></div>')
-            }
-            break;
-        case "15":
-            for (var i = 0; i < 225; i++) {
-                $("#gameBoard").addClass("gameBoardWidth15x15")
-                $("#gameBoard").append('<div id="square' + i + '" name="square" class="squareUnpressed" "></div>')
-            }
-            break;
+    for (let i = 0; i < Math.pow(size, 2); i++) {
+        $("#gameBoard").addClass("gameBoardWidth" + size + "x" + size);
+        $("#gameBoard").append('<div id="square' + i + '" name="square" class="squareUnpressed"></div>');
     }
 }
