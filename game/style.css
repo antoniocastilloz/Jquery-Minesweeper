@@ -72,5 +72,7 @@ div.container .row{
     background-color: #757575;
 }
 
-
+#gameBoard > div {
+    font-weight: 900;
+}
 
