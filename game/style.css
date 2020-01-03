@@ -76,3 +76,7 @@ div.container .row{
     font-weight: 900;
 }
 
+.visibilityHidden{
+    visibility: hidden!important;
+}
+

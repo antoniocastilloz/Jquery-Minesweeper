@@ -3,16 +3,21 @@ let boardGame;
 let hits;
 let expectedHits;
 
+var modalLoseElement = document.querySelector('#modalLose');
+var modalWinElement = document.querySelector('#modalWin');
+var modalLose = M.Modal.init(modalLoseElement);
+var modalWin = M.Modal.init(modalWinElement);
+
 onlyNumbersInInput("#numMines");
 
 function startGame() {
     let boardSizeRadio = $('input[name="radio-box"]:checked').next().text();
     let numMinesInput = $('#numMines').val();
     let size = boardSizeRadio.split(' x ')[0];
-    
+
     expectedHits = Math.pow(size, 2) - parseInt(numMinesInput);
     hits = 0;
-    
+
     cleanGameBoard();
     configGame(numMinesInput, size);
     squareClick(size);
@@ -25,8 +30,9 @@ function configGame(numMinesInput, size) {
         M.toast({ html: 'O número de minas deve maior que 0 !', classes: 'rounded teal lighten-1' });
     } else if ((Math.pow(Number(size), 2) / 2) >= Number(numMinesInput)) {
         verifyIfGameBoardExists();
-        renderGameBoardAccordingSize(size);
         createBoardGame(size, numMinesInput);
+        renderGameBoardAccordingSize(size);
+
     } else {
         M.toast({ html: 'Insira um número de minas menor ou igual a metade do tamanho do tabuleiro escolhido !', classes: 'rounded teal lighten-1' });
     }
@@ -62,7 +68,7 @@ function createBoardGame(size, numMinesInput) {
                         }
                     }
                 }
-                
+
                 boardGame[j][k] = contMines;
             }
         }
@@ -73,6 +79,7 @@ function createBoardGame(size, numMinesInput) {
 
 //Todo: apagar após os testes
 function tempPrint() {
+    console.log(boardGame)
     for (let j = 0; j < 5; j++) {
         console.log('\'' + boardGame[j][0] + '\' - \'' + boardGame[j][1] + '\' - \'' + boardGame[j][2] + '\' - \'' + boardGame[j][3] + '\' - \'' + boardGame[j][4] + '\'');
     }
@@ -102,9 +109,9 @@ function squareClick(size) {
     rightClick()
 }
 
-function leftClick(size){
+function leftClick(size) {
     $("div[name='square']").click(function () {
-        if($(this).text() != "🚩" && !$(this).hasClass("squarePressed")){
+        if ($(this).text() != "🚩" && !$(this).hasClass("squarePressed")) {
             let positionX = (Math.floor($(this).index() / parseInt(size)));
             let positionY = $(this).index() % parseInt(size);
 
@@ -114,24 +121,30 @@ function leftClick(size){
                 hits++;
             } else {
                 //Todo: melhorar animação das minas e declarar fim de jogo
-                $(this).append(assets.Bomb);
-                setTimeout(function(){ $(this).text(''); $(this).append(assets.Explosion); }.bind($(this)), 2000);
-                $(this).removeClass("squareUnpressed").addClass("squarePressed");
+
+                $("div[name='square']").each(function () {
+                    if (boardGame[$(this).attr('value').slice(0, 1)][$(this).attr('value').slice(2)] == assets.Bomb) {
+                        $("div[name='square']").removeClass("squareUnpressed").addClass("squarePressed");
+                        $(this).append(assets.Bomb);
+                        setTimeout(function () { $(this).text(''); $(this).append(assets.Explosion); }.bind($(this)), 1000);
+                    }
+                })
+                setTimeout(function () { modalLose.open(); }, 1000);
             }
 
             //Todo: declarar vitória
             if (hits == expectedHits) {
-                console.log('Fim de jogo');
+                setTimeout(function () { modalWin.open(); }, 1000);
             }
-        } 
+        }
     })
 }
 
-function rightClick(){
+function rightClick() {
     $("div[name='square']").contextmenu(function () {
-        if($(this).text() != "🚩" && !$(this).hasClass("squarePressed")) {
+        if ($(this).text() != "🚩" && !$(this).hasClass("squarePressed")) {
             $(this).append(assets.Flag);
-        } else if($(this).text() == "🚩") {
+        } else if ($(this).text() == "🚩") {
             $(this).text('');
         }
 
@@ -146,8 +159,19 @@ function verifyIfGameBoardExists() {
 }
 
 function renderGameBoardAccordingSize(size) {
+    positionXY = []
+    for (let x = 0; x < size; x++) {
+        for (let y = 0; y < size; y++) {
+            positionXY.push(x + "." + y)
+        }
+    }
+
     for (let i = 0; i < Math.pow(size, 2); i++) {
         $("#gameBoard").addClass("gameBoardWidth" + size + "x" + size);
-        $("#gameBoard").append('<div id="square' + i + '" name="square" class="squareUnpressed"></div>');
+        $("#gameBoard").append('<div id="square' + i + '" name="square" value="' + positionXY[i] + '" class="squareUnpressed"></div>');
     }
 }
+
+
+
+
