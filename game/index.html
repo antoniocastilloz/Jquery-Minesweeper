@@ -11,11 +11,7 @@
     <!-- Materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-    <!-- Jquery -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    
 </head>
 
 <body>
@@ -37,6 +33,10 @@
                     </label>
                 </div>
                 <div class="row">
+                    <!-- <label>Materialize Range</label>
+                    <p class="range-field">
+                        <input type="range" id="test" min="1" max="12" />
+                    </p> -->
                     <div class="input-field col s12">
                         <input id="numMines" type="number" class="validate grey-text">
                         <label for="numMines">Número de Minas</label>
@@ -50,23 +50,26 @@
         <!-- Modal Structure -->
         <div id="modalLose" class="modal">
             <div class="modal-content">
-                <h4>LOSE</h4>
-                <p>Content of the modal goes here. Place marketing text or other information here.</p>
+                <h4>Derrota</h4>
+                <p>Você perdeu, tente novamente.</p>
             </div>
             <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-red btn red lighten-1">Close</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-red btn red lighten-1">Sair</a>
             </div>
         </div>
         <div id="modalWin" class="modal">
             <div class="modal-content">
-                <h4>WIN</h4>
-                <p>Content of the modal goes here. Place marketing text or other information here.</p>
+                <h4>Vitória</h4>
+                <p>Parabéns! você alcançou a vitória.</p>
             </div>
             <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-red btn red lighten-1">Close</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn green lighten-1">Sair</a>
             </div>
         </div>
     </div>
+    <!-- Jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="script.js"></script>
 </body>
 

@@ -77,6 +77,14 @@ div.container .row{
 }
 
 .visibilityHidden{
-    visibility: hidden!important;
+    display: none!important;
+}
+
+.modal .modal-content {
+    padding-bottom: 0px!important;
+}
+
+input[type=range] {
+    border: 0px !important;
 }
 
