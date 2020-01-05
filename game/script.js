@@ -171,6 +171,7 @@ function renderGameBoardAccordingSize(size) {
 function showAllBombs() {
     $("div[name='square']").each(function () {
         if (boardGame[$(this).attr('value').slice(0, 1)][$(this).attr('value').slice(2)] == assets.Bomb) {
+            $(this).text('');
             $("div[name='square']").removeClass("squareUnpressed").addClass("squarePressed");
             $(this).append(assets.Bomb);
         }
