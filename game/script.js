@@ -29,7 +29,6 @@ function configGame(numMinesInput, size) {
     } else if (Number(numMinesInput) == 0) {
         M.toast({ html: 'O número de minas deve maior que 0 !', classes: 'rounded teal lighten-1' });
     } else if ((Math.pow(Number(size), 2) / 2) >= Number(numMinesInput)) {
-        showGameBoardHideGameFilter()
         verifyIfGameBoardExists();
         createBoardGame(size, numMinesInput);
         renderGameBoardAccordingSize(size);
@@ -120,10 +119,8 @@ function leftClick(size) {
                 setTimeout(function () {
                     modalLose.open();
                     $(".modal-close,.modal-overlay").click(function () {
-                        hideGameBoardShowGameFilter()
                     })
                 }, 1500);
-
             }
 
             if (hits == expectedHits) {
@@ -131,7 +128,6 @@ function leftClick(size) {
                     modalWin.open();
                     showAllBombs()
                     $(".modal-close,.modal-overlay").click(function () {
-                        hideGameBoardShowGameFilter()
                     })
                 }, 1000);
             }
@@ -170,16 +166,6 @@ function renderGameBoardAccordingSize(size) {
         $("#gameBoard").addClass("gameBoardWidth" + size + "x" + size);
         $("#gameBoard").append('<div id="square' + i + '" name="square" value="' + positionXY[i] + '" class="squareUnpressed"></div>');
     }
-}
-
-function hideGameBoardShowGameFilter() {
-    $('#gameBoard').addClass('visibilityHidden')
-    $('#gameFilter').removeClass('visibilityHidden')
-}
-
-function showGameBoardHideGameFilter() {
-    $('#gameBoard').removeClass('visibilityHidden')
-    $('#gameFilter').addClass('visibilityHidden')
 }
 
 function showAllBombs() {
