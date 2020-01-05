@@ -113,7 +113,7 @@ function leftClick(size) {
             let positionY = $(this).index() % parseInt(size);
 
             if (boardGame[positionX][positionY] != assets.Bomb) {
-                showAllAroundSquaresAssets2(positionX, positionY, size);
+                showAllAroundSquaresAssets(positionX, positionY, size);
             } else {
                 showAllBombs()
                 explodeBombs()
@@ -199,7 +199,7 @@ function explodeBombs() {
     })
 }
 
-function showAllAroundSquaresAssets2(positionX, positionY, size) {
+function showAllAroundSquaresAssets(positionX, positionY, size) {
     if (positionX >= 0 && positionX < size && positionY >= 0 && positionY < size) {
         let element = $("div[value='" + positionX + "." + positionY + "']")
 
@@ -210,14 +210,14 @@ function showAllAroundSquaresAssets2(positionX, positionY, size) {
             hits++;
 
             if (boardGame[positionX][positionY] == 0) {
-                showAllAroundSquaresAssets2(positionX - 1, positionY - 1, size)
-                showAllAroundSquaresAssets2(positionX - 1, positionY, size)
-                showAllAroundSquaresAssets2(positionX - 1, positionY + 1, size)
-                showAllAroundSquaresAssets2(positionX, positionY - 1, size)
-                showAllAroundSquaresAssets2(positionX, positionY + 1, size)
-                showAllAroundSquaresAssets2(positionX + 1, positionY - 1, size)
-                showAllAroundSquaresAssets2(positionX + 1, positionY, size)
-                showAllAroundSquaresAssets2(positionX + 1, positionY + 1, size)
+                showAllAroundSquaresAssets(positionX - 1, positionY - 1, size)
+                showAllAroundSquaresAssets(positionX - 1, positionY, size)
+                showAllAroundSquaresAssets(positionX - 1, positionY + 1, size)
+                showAllAroundSquaresAssets(positionX, positionY - 1, size)
+                showAllAroundSquaresAssets(positionX, positionY + 1, size)
+                showAllAroundSquaresAssets(positionX + 1, positionY - 1, size)
+                showAllAroundSquaresAssets(positionX + 1, positionY, size)
+                showAllAroundSquaresAssets(positionX + 1, positionY + 1, size)
             }
         }
     }
