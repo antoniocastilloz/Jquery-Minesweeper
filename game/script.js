@@ -33,7 +33,6 @@ function configGame(numMinesInput, size) {
         verifyIfGameBoardExists();
         createBoardGame(size, numMinesInput);
         renderGameBoardAccordingSize(size);
-
     } else {
         M.toast({ html: 'Insira um número de minas menor ou igual a metade do tamanho do tabuleiro escolhido !', classes: 'rounded teal lighten-1' });
     }
@@ -81,9 +80,6 @@ function createBoardGame(size, numMinesInput) {
 //Todo: apagar após os testes
 function tempPrint() {
     console.log(boardGame)
-    // for (let j = 0; j < 5; j++) {
-    //     console.log('\'' + boardGame[j][0] + '\' - \'' + boardGame[j][1] + '\' - \'' + boardGame[j][2] + '\' - \'' + boardGame[j][3] + '\' - \'' + boardGame[j][4] + '\'');
-    // }
 }
 
 function onlyNumbersInInput(input) {
@@ -117,13 +113,8 @@ function leftClick(size) {
             let positionY = $(this).index() % parseInt(size);
 
             if (boardGame[positionX][positionY] != assets.Bomb) {
-                $(this).append(boardGame[positionX][positionY]);
-                $(this).removeClass("squareUnpressed").addClass("squarePressed");
-                hits++;
-                showAllAroundSquaresAssets(boardGame, positionX, positionY)
+                showAllAroundSquaresAssets2(positionX, positionY, size);
             } else {
-                //Todo: melhorar animação das minas e declarar fim de jogo
-
                 showAllBombs()
                 explodeBombs()
                 setTimeout(function () {
@@ -208,107 +199,26 @@ function explodeBombs() {
     })
 }
 
-function showAllAroundSquaresAssets(boardGame, positionX, positionY) {
-    if (boardGame[positionX][positionY] == 0) {
-        let positionXLeft = positionX - 1
-        let positionXRight = positionX + 1
-        let positionYUp = positionY - 1
-        let positionYDown = positionY + 1
+function showAllAroundSquaresAssets2(positionX, positionY, size) {
+    if (positionX >= 0 && positionX < size && positionY >= 0 && positionY < size) {
+        let element = $("div[value='" + positionX + "." + positionY + "']")
 
-        let northWestSquare = $("div[value='" + positionXLeft + "." + positionYUp + "']")
-        let northSquare = $("div[value='" + positionXLeft + "." + positionY + "']")
-        let northEastSquare = $("div[value='" + positionXLeft + "." + positionYDown + "']")
-        let westSquare = $("div[value='" + positionX + "." + positionYUp + "']")
-        let eastSquare = $("div[value='" + positionX + "." + positionYDown + "']")
-        let southWestSquare = $("div[value='" + positionXRight + "." + positionYUp + "']")
-        let southSquare = $("div[value='" + positionXRight + "." + positionY + "']")
-        let southEastSquare = $("div[value='" + positionXRight + "." + positionYDown + "']")
-
-        try {
-            if (boardGame[positionXLeft][positionYUp] != assets.Bomb && northWestSquare.length == 1 && northWestSquare.text() == "") {
-                northWestSquare.removeClass("squareUnpressed").addClass("squarePressed");
-                northWestSquare.append(boardGame[positionXLeft][positionYUp]);
-                hits++;
-            }
-        } catch (e) {
-            console.log(e)
-        }
-        try {
-            if (boardGame[positionXLeft][positionY] != assets.Bomb && northSquare.length == 1 && northSquare.text() == "") {
-                northSquare.removeClass("squareUnpressed").addClass("squarePressed");
-                northSquare.append(boardGame[positionXLeft][positionY]);
-                hits++;
-            }
-        } catch (e) {
-            console.log(e)
-        }
-        try {
-            if (boardGame[positionXLeft][positionYDown] != assets.Bomb && northEastSquare.length == 1 && northEastSquare.text() == "") {
-                northEastSquare.removeClass("squareUnpressed").addClass("squarePressed");
-                northEastSquare.append(boardGame[positionXLeft][positionYDown]);
-                hits++;
-            }
-        } catch (e) {
-            console.log(e)
-        }
-        try {
-            if (boardGame[positionX][positionYUp] != assets.Bomb && westSquare.length == 1 && westSquare.text() == "") {
-                westSquare.removeClass("squareUnpressed").addClass("squarePressed");
-                westSquare.append(boardGame[positionX][positionYUp]);
-                hits++;
-            }
-        } catch (e) {
-            console.log(e)
-        }
-        try {
-            if (boardGame[positionX][positionYDown] != assets.Bomb && eastSquare.length == 1 && eastSquare.text() == "") {
-                eastSquare.removeClass("squareUnpressed").addClass("squarePressed");
-                eastSquare.append(boardGame[positionX][positionYDown]);
-                hits++;
-            }
-        } catch (e) {
-            console.log(e)
-        }
-        try {
-            if (boardGame[positionXRight][positionYUp] != assets.Bomb && southWestSquare.length == 1 && southWestSquare.text() == "") {
-                southWestSquare.removeClass("squareUnpressed").addClass("squarePressed");
-                southWestSquare.append(boardGame[positionXRight][positionYUp]);
-                hits++;
-            }
-        } catch (e) {
-            console.log(e)
-        }
-        try {
-            if (boardGame[positionXRight][positionY] != assets.Bomb && southSquare.length == 1 && southSquare.text() == "") {
-                southSquare.removeClass("squareUnpressed").addClass("squarePressed");
-                southSquare.append(boardGame[positionXRight][positionY]);
-                hits++;
-            }
-        } catch (e) {
-            console.log(e)
-        }
-        try {
-            if (boardGame[positionXRight][positionYDown] != assets.Bomb && southEastSquare.length == 1 && southEastSquare.text() == "") {
-                southEastSquare.removeClass("squareUnpressed").addClass("squarePressed");
-                southEastSquare.append(boardGame[positionXRight][positionYDown]);
-                hits++;
-            }
-        } catch (e) {
-            console.log(e)
-        }
-    }
-    console.log(hits)
-}
-
-function showOneSquareAround(boardGame,positionX,positionY){
-    try {
-        if (boardGame[positionXRight][positionYDown] != assets.Bomb && southEastSquare.length == 1 && southEastSquare.text() == "") {
-            southEastSquare.removeClass("squareUnpressed").addClass("squarePressed");
-            southEastSquare.append(boardGame[positionXRight][positionYDown]);
+        if (element.hasClass("squareUnpressed") && boardGame[positionX][positionY] != assets.Bomb) {
+            element.text('');
+            element.append(boardGame[positionX][positionY]);
+            element.removeClass("squareUnpressed").addClass("squarePressed");
             hits++;
+
+            if (boardGame[positionX][positionY] == 0) {
+                showAllAroundSquaresAssets2(positionX - 1, positionY - 1, size)
+                showAllAroundSquaresAssets2(positionX - 1, positionY, size)
+                showAllAroundSquaresAssets2(positionX - 1, positionY + 1, size)
+                showAllAroundSquaresAssets2(positionX, positionY - 1, size)
+                showAllAroundSquaresAssets2(positionX, positionY + 1, size)
+                showAllAroundSquaresAssets2(positionX + 1, positionY - 1, size)
+                showAllAroundSquaresAssets2(positionX + 1, positionY, size)
+                showAllAroundSquaresAssets2(positionX + 1, positionY + 1, size)
+            }
         }
-    } catch (e) {
-        console.log(e)
     }
 }
-
