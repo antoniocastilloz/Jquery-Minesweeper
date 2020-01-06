@@ -10,6 +10,12 @@ let modalWin = M.Modal.init(modalWinElement);
 
 onlyNumbersInInput("#numMines");
 
+if ($("#gameBoard").length == 0) {
+    $('#game').append('<div id="gameBoard" class="col s1"></div>');
+}
+
+$('#game').append("<div id='records' class='col s3'><label id='labelRecords' class='center'><h4>Top 5 Records</h4></label><table id='tableRecords' class='centered grey-text'><thead><tr><th>Nome</th><th>Tempo</th></tr></thead><tbody><tr><td>Alvin</td><td>Eclair</td></tr><tr><td>Alan</td><td>Jellybean</td></tr><tr><td>Jonathan</td><td>Lollipop</td></tr><tr><td>Jonathan</td><td>Lollipop</td></tr></tbody></table></div>");
+
 function startGame() {
     let boardSizeRadio = $('input[name="radio-box"]:checked').next().text();
     let numMinesInput = $('#numMines').val();
@@ -29,7 +35,7 @@ function configGame(numMinesInput, size) {
     } else if (Number(numMinesInput) == 0) {
         M.toast({ html: 'O número de minas deve maior que 0 !', classes: 'rounded teal lighten-1' });
     } else if ((Math.pow(Number(size), 2) / 2) >= Number(numMinesInput)) {
-        verifyIfGameBoardExists();
+        $("#gameBoard").css("display","flex")
         createBoardGame(size, numMinesInput);
         renderGameBoardAccordingSize(size);
     } else {
@@ -146,12 +152,6 @@ function rightClick() {
 
         return false;
     });
-}
-
-function verifyIfGameBoardExists() {
-    if ($("#gameBoard").length == 0) {
-        $('#game').append('<div id="gameBoard" class="col s1"></div>');
-    }
 }
 
 function renderGameBoardAccordingSize(size) {
