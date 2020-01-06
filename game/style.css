@@ -88,3 +88,12 @@ input[type=range] {
     border: 0px !important;
 }
 
+#labelRadio{
+    margin-bottom: 8px;
+}
+
+#timer h2{
+    margin-top: 0px!important;
+    margin-bottom: 25px!important;
+}
+
