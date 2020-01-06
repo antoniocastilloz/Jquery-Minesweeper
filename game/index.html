@@ -20,7 +20,7 @@
             <div id="gameFilter" class="col s3 center">
                 <div id="timer" class="row">
                     <label class="col s12" id="labelTimer">Tempo de Jogo</label>
-                    <label class="col s12" id="time"><h2>00:00</h2></label>
+                    <label class="col s12" id="time"><h2><time>00:00:00</time></h2></label>
                 </div>
                 <div id="boardSize" class="row">
                     <label class="col s12" id="labelRadio">Selecione um Tabuleiro</label>
@@ -57,7 +57,7 @@
         <div id="modalLose" class="modal">
             <div class="modal-content">
                 <h4>Derrota</h4>
-                <p>Você perdeu, tente novamente.</p>
+                <p>Você explodiu uma bomba, tente novamente.</p>
             </div>
             <div class="modal-footer">
                 <a href="#!" class="modal-action modal-close waves-effect waves-red btn red lighten-1">Sair</a>
@@ -67,9 +67,17 @@
             <div class="modal-content">
                 <h4>Vitória</h4>
                 <p>Parabéns! você alcançou a vitória.</p>
+                <br>
+                <div class="row">
+                    <div class="input-field col s12">
+                      <input placeholder="Digite aqui seu nome para salvá-lo entre os melhores Records." id="name" type="text" class="validate">
+                      <label for="name">Nome</label>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn green lighten-1">Sair</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn green lighten-1">Enviar Nome</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn red lighten-1">Sair</a>
             </div>
         </div>
     </div>

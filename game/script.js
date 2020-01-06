@@ -3,6 +3,11 @@ let boardGame;
 let hits;
 let expectedHits;
 
+let time;
+let seconds = 0;
+let minutes = 0;
+let hours = 0;
+
 let modalLoseElement = document.querySelector('#modalLose');
 let modalWinElement = document.querySelector('#modalWin');
 let modalLose = M.Modal.init(modalLoseElement);
@@ -14,7 +19,7 @@ if ($("#gameBoard").length == 0) {
     $('#game').append('<div id="gameBoard" class="col s1"></div>');
 }
 
-$('#game').append("<div id='records' class='col s3'><label id='labelRecords' class='center'><h4>Top 5 Records</h4></label><table id='tableRecords' class='centered grey-text'><thead><tr><th>Nome</th><th>Tempo</th></tr></thead><tbody><tr><td>Alvin</td><td>Eclair</td></tr><tr><td>Alan</td><td>Jellybean</td></tr><tr><td>Jonathan</td><td>Lollipop</td></tr><tr><td>Jonathan</td><td>Lollipop</td></tr></tbody></table></div>");
+$('#game').append("<div id='records' class='col s3'><label id='labelRecords' class='center'><h4>Top 5 Records</h4></label><table id='tableRecords' class='centered grey-text'><thead><tr><th>Nome</th><th>Tempo</th></tr></thead><tbody><tr id='firstRecord'><td>-</td><td>-</td></tr><tr id='secondRecord'><td>-</td><td>-</td></tr><tr id='thirdRecord'><td>-</td><td>-</td></tr><tr id='fourthRecord'><td>-</td><td>-</td></tr><tr id='fifithRecord'><td>-</td><td>-</td></tr></tbody></table></div>");
 
 function startGame() {
     let boardSizeRadio = $('input[name="radio-box"]:checked').next().text();
@@ -23,7 +28,15 @@ function startGame() {
 
     expectedHits = Math.pow(size, 2) - parseInt(numMinesInput);
     hits = 0;
-
+    
+    clearTimeout(time);
+    seconds = 0;
+    minutes = 0;
+    turned = 0;
+    points = 0;
+    hours = 0;
+    document.querySelector('#time > h2').textContent = '00:00:00';
+    timer()
     cleanGameBoard();
     configGame(numMinesInput, size);
     squareClick(size);
@@ -120,6 +133,7 @@ function leftClick(size) {
             if (boardGame[positionX][positionY] != assets.Bomb) {
                 showAllAroundSquaresAssets(positionX, positionY, size);
             } else {
+                $("div[name='square']").css("pointer-events","none")
                 showAllBombs()
                 explodeBombs()
                 setTimeout(function () {
@@ -130,6 +144,7 @@ function leftClick(size) {
             }
 
             if (hits == expectedHits) {
+                clearTimeout(time);
                 setTimeout(function () {
                     modalWin.open();
                     showAllBombs()
@@ -214,4 +229,25 @@ function showAllAroundSquaresAssets(positionX, positionY, size) {
             }
         }
     }
+}
+
+function addTime() {
+    seconds++;
+
+    if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes >= 60) {
+            minutes = 0;
+            hours++;
+        }
+    }
+
+    document.querySelector('#time > h2').textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+    timer();
+}
+
+function timer() {
+    time = setTimeout(function () { addTime() }, 1000);
 }
