@@ -170,9 +170,12 @@ function renderGameBoardAccordingSize(size) {
 
 function showAllBombs() {
     $("div[name='square']").each(function () {
-        if (boardGame[$(this).attr('value').slice(0, 1)][$(this).attr('value').slice(2)] == assets.Bomb) {
+        let position = $(this).attr('value').split('.');
+        let positionX = position[0];
+        let positionY = position[1];
+        if (boardGame[positionX][positionY] == assets.Bomb) {
             $(this).text('');
-            $("div[name='square']").removeClass("squareUnpressed").addClass("squarePressed");
+            $(this).removeClass("squareUnpressed").addClass("squarePressed");
             $(this).append(assets.Bomb);
         }
     })
@@ -180,7 +183,10 @@ function showAllBombs() {
 
 function explodeBombs() {
     $("div[name='square']").each(function () {
-        if (boardGame[$(this).attr('value').slice(0, 1)][$(this).attr('value').slice(2)] == assets.Bomb) {
+        let position = $(this).attr('value').split('.');
+        let positionX = position[0];
+        let positionY = position[1];
+        if (boardGame[positionX][positionY] == assets.Bomb) {
             setTimeout(function () { $(this).text(''); $(this).append(assets.Explosion); }.bind($(this)), 1500);
         }
     })
