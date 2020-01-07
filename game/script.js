@@ -26,7 +26,9 @@ if ($("#gameBoard").length == 0) {
     $('#game').append('<div id="gameBoard" class="col s1"></div>');
 }
 
-$('#game').append("<div id='records' class='col s3'><label id='labelRecords' class='center'><h4>Top 5 Records</h4></label><table id='tableRecords' class='centered grey-text'><thead><tr><th>Nome</th><th>Tempo</th></tr></thead><tbody><tr id='record0'><td id='name0'>-</td><td id='time0'>-</td></tr><tr id='record1'><td id='name1'>-</td><td id='time1'>-</td></tr><tr id='record2'><td id='name2'>-</td><td id='time2'>-</td></tr><tr id='record3'><td id='name3'>-</td><td id='time3'>-</td></tr><tr id='record4'><td id='name4'>-</td><td id='time4'>-</td></tr></tbody></table></div>");
+$('#game').append("<div id='records' class='col s3'><label id='labelRecords' class='center'><h4>Records</h4></label><table id='tableRecords' class='centered grey-text'><thead><tr><th>Nome</th><th>Tempo</th></tr></thead><tbody><tr id='record0'><td id='name0'>-</td><td id='time0'>-</td></tr><tr id='record1'><td id='name1'>-</td><td id='time1'>-</td></tr><tr id='record2'><td id='name2'>-</td><td id='time2'>-</td></tr><tr id='record3'><td id='name3'>-</td><td id='time3'>-</td></tr><tr id='record4'><td id='name4'>-</td><td id='time4'>-</td></tr></tbody></table></div>");
+
+populateRecordsTable();
 
 function startGame() {
     let boardSizeRadio = $('input[name="radio-box"]:checked').next().text();
@@ -104,6 +106,7 @@ function createBoardGame(size, numMinesInput) {
 
 //Todo: apagar após os testes
 function tempPrint() {
+    console.log("Novo Jogo")
     console.log(boardGame)
 }
 
@@ -273,7 +276,8 @@ function checkRecord() {
             if (records[4 - i] == null) {
                 localStorage.setItem('record' + (4 - i), gameRecord);
                 records[4 - i] = localStorage.getItem("record" + (4 - i))
-                $('#time' + (4 - i)).text(localStorage.getItem('record' + (4 - i)));
+                $('#record' + (4 - i)).css("display", "table-row");
+                $('#time' + (4 - i)).text(localStorage.getItem('record' + (4 - i)))
                 console.log("Record adicionado na posição '" + (4 - i) + "': " + records)
                 break;
             } else if (records.every(verifyIfIsDifferentNull)) {
@@ -283,6 +287,7 @@ function checkRecord() {
                     for (let x = 0; x < 5; x++) {
                         localStorage.setItem('record' + x, records[x])
                     }
+                    populateRecordsTable()
                 } else
                     if (new Date('01/01/2019 ' + records[1]) > new Date('01/01/2019 ' + gameRecord)) {
                         records.splice(1, 0, gameRecord)
@@ -290,6 +295,7 @@ function checkRecord() {
                         for (let x = 0; x < 5; x++) {
                             localStorage.setItem('record' + x, records[x])
                         }
+                        populateRecordsTable()
                     } else
                         if (new Date('01/01/2019 ' + records[2]) > new Date('01/01/2019 ' + gameRecord)) {
                             records.splice(2, 0, gameRecord)
@@ -297,6 +303,7 @@ function checkRecord() {
                             for (let x = 0; x < 5; x++) {
                                 localStorage.setItem('record' + x, records[x])
                             }
+                            populateRecordsTable()
                         } else
                             if (new Date('01/01/2019 ' + records[3]) > new Date('01/01/2019 ' + gameRecord)) {
                                 records.splice(3, 0, gameRecord)
@@ -304,6 +311,7 @@ function checkRecord() {
                                 for (let x = 0; x < 5; x++) {
                                     localStorage.setItem('record' + x, records[x])
                                 }
+                                populateRecordsTable()
                             } else
                                 if (new Date('01/01/2019 ' + records[4]) > new Date('01/01/2019 ' + gameRecord)) {
                                     records.splice(4, 0, gameRecord)
@@ -311,6 +319,7 @@ function checkRecord() {
                                     for (let x = 0; x < 5; x++) {
                                         localStorage.setItem('record' + x, records[x])
                                     }
+                                    populateRecordsTable()
                                 }
                 break;
             }
@@ -321,4 +330,13 @@ function checkRecord() {
 
 function verifyIfIsDifferentNull(position) {
     return position != null;
+}
+
+function populateRecordsTable() {
+    for (let i = 4; i >= 0; i--) {
+        if (records[i] != null) {
+            $('#record' + i).css("display", "table-row");
+            $('#time' + i).text(localStorage.getItem('record' + i))
+        }
+    }
 }

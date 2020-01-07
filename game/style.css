@@ -139,3 +139,7 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance:textfield;
 }
+
+#record0, #record1, #record2, #record3 {
+    display: none;
+}
