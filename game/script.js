@@ -3,6 +3,7 @@ let boardGame;
 let hits;
 let expectedHits;
 
+let records = []
 let time;
 let seconds = 0;
 let minutes = 0;
@@ -13,13 +14,19 @@ let modalWinElement = document.querySelector('#modalWin');
 let modalLose = M.Modal.init(modalLoseElement);
 let modalWin = M.Modal.init(modalWinElement);
 
+for (let x = 0; x < 5; x++) {
+    records.push(localStorage.getItem("record" + x))
+}
+
+console.log("Records gravados: " + records)
+
 onlyNumbersInInput("#numMines");
 
 if ($("#gameBoard").length == 0) {
     $('#game').append('<div id="gameBoard" class="col s1"></div>');
 }
 
-$('#game').append("<div id='records' class='col s3'><label id='labelRecords' class='center'><h4>Top 5 Records</h4></label><table id='tableRecords' class='centered grey-text'><thead><tr><th>Nome</th><th>Tempo</th></tr></thead><tbody><tr id='firstRecord'><td>-</td><td>-</td></tr><tr id='secondRecord'><td>-</td><td>-</td></tr><tr id='thirdRecord'><td>-</td><td>-</td></tr><tr id='fourthRecord'><td>-</td><td>-</td></tr><tr id='fifithRecord'><td>-</td><td>-</td></tr></tbody></table></div>");
+$('#game').append("<div id='records' class='col s3'><label id='labelRecords' class='center'><h4>Top 5 Records</h4></label><table id='tableRecords' class='centered grey-text'><thead><tr><th>Nome</th><th>Tempo</th></tr></thead><tbody><tr id='record0'><td id='name0'>-</td><td id='time0'>-</td></tr><tr id='record1'><td id='name1'>-</td><td id='time1'>-</td></tr><tr id='record2'><td id='name2'>-</td><td id='time2'>-</td></tr><tr id='record3'><td id='name3'>-</td><td id='time3'>-</td></tr><tr id='record4'><td id='name4'>-</td><td id='time4'>-</td></tr></tbody></table></div>");
 
 function startGame() {
     let boardSizeRadio = $('input[name="radio-box"]:checked').next().text();
@@ -28,7 +35,7 @@ function startGame() {
 
     expectedHits = Math.pow(size, 2) - parseInt(numMinesInput);
     hits = 0;
-    
+
     clearTimeout(time);
     seconds = 0;
     minutes = 0;
@@ -48,7 +55,7 @@ function configGame(numMinesInput, size) {
     } else if (Number(numMinesInput) == 0) {
         M.toast({ html: 'O número de minas deve maior que 0 !', classes: 'rounded teal lighten-1' });
     } else if ((Math.pow(Number(size), 2) / 2) >= Number(numMinesInput)) {
-        $("#gameBoard").css("display","flex")
+        $("#gameBoard").css("display", "flex")
         createBoardGame(size, numMinesInput);
         renderGameBoardAccordingSize(size);
     } else {
@@ -133,7 +140,7 @@ function leftClick(size) {
             if (boardGame[positionX][positionY] != assets.Bomb) {
                 showAllAroundSquaresAssets(positionX, positionY, size);
             } else {
-                $("div[name='square']").css("pointer-events","none")
+                $("div[name='square']").css("pointer-events", "none")
                 showAllBombs()
                 explodeBombs()
                 setTimeout(function () {
@@ -145,6 +152,7 @@ function leftClick(size) {
 
             if (hits == expectedHits) {
                 clearTimeout(time);
+                checkRecord();
                 setTimeout(function () {
                     modalWin.open();
                     showAllBombs()
@@ -250,4 +258,67 @@ function addTime() {
 
 function timer() {
     time = setTimeout(function () { addTime() }, 1000);
+}
+
+function checkRecord() {
+    let gameRecord = document.querySelector('#time > h2').textContent;
+
+    if (records[4] == null) {
+        localStorage.setItem('record' + 4, gameRecord);
+        records[4] = localStorage.getItem("record" + 4)
+        $('#time' + 4).text(localStorage.getItem('record' + 4));
+        console.log("Primeiro record na posição 0: " + records)
+    } else {
+        for (let i = 1; i < 5; i++) {
+            if (records[4 - i] == null) {
+                localStorage.setItem('record' + (4 - i), gameRecord);
+                records[4 - i] = localStorage.getItem("record" + (4 - i))
+                $('#time' + (4 - i)).text(localStorage.getItem('record' + (4 - i)));
+                console.log("Record adicionado na posição '" + (4 - i) + "': " + records)
+                break;
+            } else if (records.every(verifyIfIsDifferentNull)) {
+                if (new Date('01/01/2019 ' + records[0]) > new Date('01/01/2019 ' + gameRecord)) {
+                    records.splice(0, 0, gameRecord)
+                    records.splice(5, 1)
+                    for (let x = 0; x < 5; x++) {
+                        localStorage.setItem('record' + x, records[x])
+                    }
+                } else
+                    if (new Date('01/01/2019 ' + records[1]) > new Date('01/01/2019 ' + gameRecord)) {
+                        records.splice(1, 0, gameRecord)
+                        records.splice(5, 1)
+                        for (let x = 0; x < 5; x++) {
+                            localStorage.setItem('record' + x, records[x])
+                        }
+                    } else
+                        if (new Date('01/01/2019 ' + records[2]) > new Date('01/01/2019 ' + gameRecord)) {
+                            records.splice(2, 0, gameRecord)
+                            records.splice(5, 1)
+                            for (let x = 0; x < 5; x++) {
+                                localStorage.setItem('record' + x, records[x])
+                            }
+                        } else
+                            if (new Date('01/01/2019 ' + records[3]) > new Date('01/01/2019 ' + gameRecord)) {
+                                records.splice(3, 0, gameRecord)
+                                records.splice(5, 1)
+                                for (let x = 0; x < 5; x++) {
+                                    localStorage.setItem('record' + x, records[x])
+                                }
+                            } else
+                                if (new Date('01/01/2019 ' + records[4]) > new Date('01/01/2019 ' + gameRecord)) {
+                                    records.splice(4, 0, gameRecord)
+                                    records.splice(5, 1)
+                                    for (let x = 0; x < 5; x++) {
+                                        localStorage.setItem('record' + x, records[x])
+                                    }
+                                }
+                break;
+            }
+
+        }
+    }
+}
+
+function verifyIfIsDifferentNull(position) {
+    return position != null;
 }
