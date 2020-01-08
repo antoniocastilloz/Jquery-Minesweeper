@@ -41,14 +41,17 @@ div.container .row{
 
 .gameBoardWidth5x5{
     width: 203px!important;
+    min-width: 203px!important;
 }
 
 .gameBoardWidth10x10{
     width: 363px!important;
+    min-width: 363px!important;
 }
 
 .gameBoardWidth15x15{
     width: 523px!important;
+    min-width: 523px!important;
 }
 
 .squareUnpressed{
