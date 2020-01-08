@@ -70,20 +70,21 @@
                 <br>
                 <div class="row">
                     <div class="input-field col s12">
-                      <input placeholder="Digite aqui seu nome para salvá-lo entre os melhores Records." id="name" type="text" class="validate">
-                      <label for="name">Nome</label>
+                      <input placeholder="Digite aqui seu nome para salvá-lo entre os melhores Records." id="nameRecord" type="text" class="validate">
+                      <label for="nameRecord">Nome</label>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn green lighten-1">Enviar Nome</a>
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn red lighten-1">Sair</a>
+                <a id="btnSendRecord" class="waves-effect waves-green btn green lighten-1" onclick="sendRecordName()">Enviar Nome</a>
             </div>
         </div>
     </div>
-    <!-- Jquery -->
+    <!-- Materialize -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!-- Core JS -->
     <script src="script.js"></script>
 </body>
 
