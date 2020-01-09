@@ -17,7 +17,7 @@ let modalLoseElement = document.querySelector('#modalLose');
 let modalWinElement = document.querySelector('#modalWin');
 
 let modalLose = M.Modal.init(modalLoseElement, { dismissible: false });
-let modalWin = M.Modal.init(modalWinElement, { dismissible: false, onCloseStart:saveAndDisplayOrdenedRecords(nameRecord)});
+let modalWin = M.Modal.init(modalWinElement, { dismissible: false });
 
 console.log(modalWin.id)
 
@@ -47,14 +47,6 @@ function startGame() {
     expectedHits = Math.pow(size, 2) - parseInt(numMinesInput);
     hits = 0;
 
-    clearTimeout(time);
-    seconds = 0;
-    minutes = 0;
-    turned = 0;
-    points = 0;
-    hours = 0;
-    document.querySelector('#time > h2').textContent = '00:00:00';
-    timer()
     cleanGameBoard();
     configGame(numMinesInput, size);
     squareClick(size);
@@ -67,6 +59,14 @@ function configGame(numMinesInput, size) {
         M.toast({ html: 'O número de minas deve maior que 0 !', classes: 'rounded teal lighten-1' });
     } else if ((Math.pow(Number(size), 2) / 2) >= Number(numMinesInput)) {
         $("#gameBoard").css("display", "flex")
+        clearTimeout(time);
+        seconds = 0;
+        minutes = 0;
+        turned = 0;
+        points = 0;
+        hours = 0;
+        document.querySelector('#time > h2').textContent = '00:00:00';
+        timer()
         createBoardGame(size, numMinesInput);
         renderGameBoardAccordingSize(size);
     } else {
@@ -166,8 +166,7 @@ function leftClick(size) {
                 clearTimeout(time);
                 setTimeout(function () {
                     showAllBombs()
-                    modalWin.open({ ready: function () { alert('Ready'); } });
-
+                    modalWin.open();
                 }, 1000);
             }
         }
@@ -365,12 +364,13 @@ function sendRecordName() {
     } else {
         M.toast({ html: 'Você acabou de salvar seu nome entre os Records !', classes: 'rounded teal lighten-1' });
         $("#nameRecord").val('')
-        modalWin.close();
+        modalWin.close().then(saveAndDisplayOrdenedRecords(nameRecord));
     }
 }
 
 function updateLocalStorageRecordNamesAndTimes() {
     for (let x = 0; x < 5; x++) {
         localStorage.setItem('record' + x, records[x])
+        localStorage.setItem('name' + x, name[x])
     }
 }
