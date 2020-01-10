@@ -4,7 +4,6 @@ let hits;
 let expectedHits;
 
 let records = []
-let names = []
 
 let nameRecord = ""
 
@@ -19,15 +18,13 @@ let modalWinElement = document.querySelector('#modalWin');
 let modalLose = M.Modal.init(modalLoseElement, { dismissible: false });
 let modalWin = M.Modal.init(modalWinElement, { dismissible: false });
 
-console.log(modalWin.id)
-
 for (let x = 0; x < 5; x++) {
-    records.push(localStorage.getItem("record" + x))
-    names.push(localStorage.getItem("names" + x))
+    if (localStorage.getItem("record" + x) != null) {
+        records.push({ name: localStorage.getItem("names" + x), time: localStorage.getItem("record" + x) })
+    }
 }
 
-console.log("Tempos gravados: " + records)
-console.log("Nomes gravados: " + names)
+console.log("Records Gravados: " + records)
 
 onlyNumbersInInput("#numMines");
 
@@ -273,86 +270,56 @@ function saveAndDisplayOrdenedRecords(nameRecord) {
     let timeRecord = document.querySelector('#time > h2').textContent;
 
     if (hits == expectedHits) {
-        if (records[4] == null) {
-            localStorage.setItem('record' + 4, timeRecord);
-            records[4] = localStorage.getItem("record" + 4)
-            $('#time' + 4).text(localStorage.getItem('record' + 4));
-            localStorage.setItem('name' + 4, nameRecord);
-            names[4] = localStorage.getItem("name" + 4)
-            $('#name' + 4).text(localStorage.getItem('name' + 4));
-            console.log("Primeiro record na posição 0: " + records)
+        records.push({ name: nameRecord, time: timeRecord })
+        console.log(records.length)
+        if (records.length == 1) {
+            localStorage.setItem('record0', timeRecord);
+            localStorage.setItem('name0', nameRecord);
+            populateRecordsTable()
+            console.log(records)
         } else {
-            for (let i = 1; i < 5; i++) {
-                if (records[4 - i] == null) {
-                    localStorage.setItem('record' + (4 - i), timeRecord);
-                    records[4 - i] = localStorage.getItem("record" + (4 - i))
-                    localStorage.setItem('name' + (4 - i), nameRecord);
-                    names[4 - i] = localStorage.getItem("name" + (4 - i))
-                    $('#record' + (4 - i)).css("display", "table-row");
-                    $('#time' + (4 - i)).text(localStorage.getItem('record' + (4 - i)))
-                    $('#name' + (4 - i)).text(localStorage.getItem('name' + (4 - i)))
-                    console.log("Record adicionado na posição '" + (4 - i) + "': " + records)
-                    break;
-                } else if (records.every(verifyIfIsDifferentNull)) {
-                    if (new Date('01/01/2019 ' + records[0]) > new Date('01/01/2019 ' + timeRecord)) {
-                        records.splice(0, 0, timeRecord)
-                        records.splice(5, 1)
-                        names.splice(0, 0, nameRecord)
-                        names.splice(5, 1)
-                        updateLocalStorageRecordNamesAndTimes()
-                        populateRecordsTable()
-                    } else
-                        if (new Date('01/01/2019 ' + records[1]) > new Date('01/01/2019 ' + timeRecord)) {
-                            records.splice(1, 0, timeRecord)
-                            records.splice(5, 1)
-                            names.splice(1, 0, nameRecord)
-                            names.splice(5, 1)
-                            updateLocalStorageRecordNamesAndTimes()
-                            populateRecordsTable()
-                        } else
-                            if (new Date('01/01/2019 ' + records[2]) > new Date('01/01/2019 ' + timeRecord)) {
-                                records.splice(2, 0, timeRecord)
-                                records.splice(5, 1)
-                                names.splice(2, 0, nameRecord)
-                                names.splice(5, 1)
-                                updateLocalStorageRecordNamesAndTimes()
-                                populateRecordsTable()
-                            } else
-                                if (new Date('01/01/2019 ' + records[3]) > new Date('01/01/2019 ' + timeRecord)) {
-                                    records.splice(3, 0, timeRecord)
-                                    records.splice(5, 1)
-                                    names.splice(3, 0, nameRecord)
-                                    names.splice(5, 1)
-                                    updateLocalStorageRecordNamesAndTimes()
-                                    populateRecordsTable()
-                                } else
-                                    if (new Date('01/01/2019 ' + records[4]) > new Date('01/01/2019 ' + timeRecord)) {
-                                        records.splice(4, 0, timeRecord)
-                                        records.splice(5, 1)
-                                        names.splice(4, 0, nameRecord)
-                                        names.splice(5, 1)
-                                        updateLocalStorageRecordNamesAndTimes()
-                                        populateRecordsTable()
-                                    }
-                    break;
-                }
-
-            }
+            console.log(records)
+            localStorage.setItem('record' + records.indexOf(records[records.length - 1]), timeRecord);
+            localStorage.setItem('name' + records.indexOf(records[records.length - 1]), nameRecord);
+            records.sort(sortArrayOfObjectsByTime)
+            updateLocalStorageRecordNamesAndTimes()
+            populateRecordsTable()
+            console.log(records)
+        }
+        if (records.length == 5) {
+            console.log(records)
+            let copyRecords = records;
+            copyRecords.push({ name: nameRecord, time: timeRecord })
+            copyRecords.sort(sortArrayOfObjectsByTime)
+            copyRecords.splice(4, 1)
+            records = copyRecords
+            updateLocalStorageRecordNamesAndTimes()
+            populateRecordsTable()
         }
     }
 
 }
 
-function verifyIfIsDifferentNull(position) {
+function isDifferentNull(position) {
     return position != null;
 }
 
+function verifyAllPositionsOfArrayIsDifferentUndefined(array) {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i].name == undefined && array[i].time == undefined) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
 function populateRecordsTable() {
-    for (let i = 4; i >= 0; i--) {
+    for (let i = 0; i < 5; i++) {
         if (records[i] != null) {
             $('#record' + i).css("display", "table-row");
-            $('#name' + i).text(localStorage.getItem('record' + i))
-            $('#time' + i).text(localStorage.getItem('name' + i))
+            $('#name' + i).text(localStorage.getItem('name' + i))
+            $('#time' + i).text(localStorage.getItem('record' + i))
         }
     }
 }
@@ -364,13 +331,25 @@ function sendRecordName() {
     } else {
         M.toast({ html: 'Você acabou de salvar seu nome entre os Records !', classes: 'rounded teal lighten-1' });
         $("#nameRecord").val('')
-        modalWin.close().then(saveAndDisplayOrdenedRecords(nameRecord));
+        modalWin.close()
+        saveAndDisplayOrdenedRecords(nameRecord);
     }
 }
 
 function updateLocalStorageRecordNamesAndTimes() {
-    for (let x = 0; x < 5; x++) {
-        localStorage.setItem('record' + x, records[x])
-        localStorage.setItem('name' + x, name[x])
+    for (let x = 0; x < records.length; x++) {
+
+        localStorage.setItem('record' + x, records[x].time)
+        localStorage.setItem('name' + x, records[x].name)
     }
+}
+
+function sortArrayOfObjectsByTime(a, b) {
+    if (a.time < b.time) {
+        return -1;
+    }
+    if (a.time > b.time) {
+        return 1;
+    }
+    return 0;
 }
