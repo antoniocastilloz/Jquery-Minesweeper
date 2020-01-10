@@ -277,7 +277,7 @@ function saveAndDisplayOrdenedRecords(nameRecord) {
             localStorage.setItem('name0', nameRecord);
             populateRecordsTable()
             console.log(records)
-        } else {
+        } else if (records.length < 5){
             console.log(records)
             localStorage.setItem('record' + records.indexOf(records[records.length - 1]), timeRecord);
             localStorage.setItem('name' + records.indexOf(records[records.length - 1]), nameRecord);
