@@ -20,7 +20,7 @@ let modalWin = M.Modal.init(modalWinElement, { dismissible: false });
 
 for (let x = 0; x < 5; x++) {
     if (localStorage.getItem("record" + x) != null) {
-        records.push({ name: localStorage.getItem("names" + x), time: localStorage.getItem("record" + x) })
+        records.push({ name: localStorage.getItem("name" + x), time: localStorage.getItem("record" + x) })
     }
 }
 
@@ -272,13 +272,14 @@ function saveAndDisplayOrdenedRecords(nameRecord) {
     if (hits == expectedHits) {
         records.push({ name: nameRecord, time: timeRecord })
         console.log(records.length)
+        console.log(records)
         if (records.length == 1) {
             localStorage.setItem('record0', timeRecord);
             localStorage.setItem('name0', nameRecord);
             populateRecordsTable()
             console.log(records)
             console.log(records.length)
-        } else if (records.length < 4){
+        } else if (records.length <= 4){
             console.log(records)
             localStorage.setItem('record' + records.indexOf(records[records.length - 1]), timeRecord);
             localStorage.setItem('name' + records.indexOf(records[records.length - 1]), nameRecord);
@@ -286,8 +287,7 @@ function saveAndDisplayOrdenedRecords(nameRecord) {
             updateLocalStorageRecordNamesAndTimes()
             populateRecordsTable()
             console.log(records)
-        }
-        if (records.length == 5) {
+        } else{
             console.log(records)
             let copyRecords = records;
             copyRecords.push({ name: nameRecord, time: timeRecord })
@@ -296,7 +296,7 @@ function saveAndDisplayOrdenedRecords(nameRecord) {
             records = copyRecords
             updateLocalStorageRecordNamesAndTimes()
             populateRecordsTable()
-        }
+        }    
     }
 
 }
@@ -339,7 +339,6 @@ function sendRecordName() {
 
 function updateLocalStorageRecordNamesAndTimes() {
     for (let x = 0; x < records.length; x++) {
-
         localStorage.setItem('record' + x, records[x].time)
         localStorage.setItem('name' + x, records[x].name)
     }
