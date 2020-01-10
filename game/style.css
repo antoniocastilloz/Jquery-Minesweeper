@@ -143,6 +143,6 @@ input[type=number] {
   -moz-appearance:textfield;
 }
 
-#record0, #record1, #record2, #record3 {
+#record1, #record2, #record3, #record4 {
     display: none;
 }
