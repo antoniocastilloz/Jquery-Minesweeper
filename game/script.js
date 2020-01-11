@@ -289,10 +289,12 @@ function saveAndDisplayOrdenedRecords(nameRecord) {
             console.log(records)
         } else{
             console.log(records)
+            console.log(records[4])
             let copyRecords = records;
-            copyRecords.push({ name: nameRecord, time: timeRecord })
             copyRecords.sort(sortArrayOfObjectsByTime)
-            copyRecords.splice(4, 1)
+            console.log(copyRecords)
+            console.log(copyRecords[4])
+            copyRecords.pop()
             records = copyRecords
             updateLocalStorageRecordNamesAndTimes()
             populateRecordsTable()
