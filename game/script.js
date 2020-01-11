@@ -24,8 +24,6 @@ for (let x = 0; x < 5; x++) {
     }
 }
 
-console.log("Records Gravados: " + records)
-
 onlyNumbersInInput("#numMines");
 
 if ($("#gameBoard").length == 0) {
@@ -106,14 +104,6 @@ function createBoardGame(size, numMinesInput) {
             }
         }
     }
-
-    tempPrint();
-}
-
-//Todo: apagar após os testes
-function tempPrint() {
-    console.log("Novo Jogo")
-    console.log(boardGame)
 }
 
 function onlyNumbersInInput(input) {
@@ -271,25 +261,17 @@ function saveAndDisplayOrdenedRecords(nameRecord) {
 
     if (hits == expectedHits) {
         records.push({ name: nameRecord, time: timeRecord })
-        console.log(records.length)
-        console.log(records)
         if (records.length == 1) {
             localStorage.setItem('record0', timeRecord);
             localStorage.setItem('name0', nameRecord);
             populateRecordsTable()
-            console.log(records)
-            console.log(records.length)
         } else if (records.length <= 5){
-            console.log(records)
             localStorage.setItem('record' + records.indexOf(records[records.length - 1]), timeRecord);
             localStorage.setItem('name' + records.indexOf(records[records.length - 1]), nameRecord);
             records.sort(sortArrayOfObjectsByTime)
             updateLocalStorageRecordNamesAndTimes()
             populateRecordsTable()
-            console.log(records)
         } else{
-            console.log(records)
-            console.log(records[4])
             let copyRecords = records;
             copyRecords.sort(sortArrayOfObjectsByTime)
             copyRecords.pop()
